@@ -15,7 +15,7 @@ const JWT_SECRET =
   "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
 
 const mongoUrl =
-  "mongodb+srv://adarsh:adarsh@cluster0.zllye.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb://0.0.0.0:27017/erashan";
 
 mongoose
   .connect(mongoUrl, {
@@ -30,7 +30,7 @@ require("./userDetails");
 
 const User = mongoose.model("UserInfo");
 app.post("/register", async (req, res) => {
-  const { fname, lname, email, password } = req.body;
+  const { name, accountType, email, password } = req.body;
 
   const encryptedPassword = await bcrypt.hash(password, 10);
   try {
@@ -40,8 +40,8 @@ app.post("/register", async (req, res) => {
       return res.json({ error: "User Exists" });
     }
     await User.create({
-      fname,
-      lname,
+      name,
+      accountType,
       email,
       password: encryptedPassword,
     });
